@@ -1,4 +1,5 @@
 import ast
+from pprint import pprint
 
 
 class AC3:
@@ -54,6 +55,7 @@ class AC3:
         for i in range(n):
             tab = ast.literal_eval(fileContent[i])
             domain.append(tab)
+        self.setDomains(domain)
         fileContent = fileContent[n:]
         self.parseConstraints(fileContent)
 
@@ -71,5 +73,15 @@ class AC3:
             else:
                 if tab[0] == "allDifferent":
                     for i in range(len(self.variables)):
-                        for j in range(i, len(self.variables)):
+                        for j in range(i+1, len(self.variables)):
                             self.addConstraint(i, j, self.diffVerifier)
+
+
+test=AC3()
+test.parseProblemFromFile()
+test.buildConstraintGraph()
+
+pprint(test.constraints_array)
+print(test.constraints_graph)
+print(test.domains)
+print(test.variables)
