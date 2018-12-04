@@ -1,3 +1,6 @@
+import ast
+
+
 class AC3:
 
     def __init__(self):
@@ -26,12 +29,47 @@ class AC3:
     def diffVerifier(self, i, j):
         return self.variables[i] != self.variables[j]
 
-    def eqVerifier(self,i,j):
+    def eqVerifier(self, i, j):
         return self.variables[i] == self.variables[j]
 
-    def sameDiagonalVerifier(self,i,j):
-        return abs(i-j) == abs(self.variables[i]-self.variables[j])
+    def sameDiagonalVerifier(self, i, j):
+        return abs(i - j) == abs(self.variables[i] - self.variables[j])
 
-    def notSameDiagonalVerifier(self,i,j):
-        return not self.sameDiagonalVerifier(i,j)
+    def notSameDiagonalVerifier(self, i, j):
+        return not self.sameDiagonalVerifier(i, j)
 
+    def setDomains(self, array):
+        self.domains = array
+
+    def parseProblemFromFile(self):
+        problem = open("problem.txt", "r")
+        fileContent = []
+        for line in problem.readlines():
+            if line[0] != "#":
+                fileContent.append(line.replace("\n", ""))
+        n = int(fileContent[0])
+        self.setVariablesNumber(n)
+        fileContent = fileContent[1:]
+        domain = []
+        for i in range(n):
+            tab = ast.literal_eval(fileContent[i])
+            domain.append(tab)
+        fileContent = fileContent[n:]
+        self.parseConstraints(fileContent)
+
+    def parseConstraints(self, array):
+        for line in array:
+            tab = line.split(";")
+            if len(tab) == 3:
+                if tab[0] == "diff":
+                    self.addConstraint(int(tab[1]), int(tab[2]), self.diffVerifier)
+                elif tab[0] == "eq":
+                    self.addConstraint(int(tab[1]), int(tab[2]), self.eqVerifier)
+                elif tab[0] == "notSameDiagonal":
+                    self.addConstraint(int(tab[1]), int(tab[2]), self.notSameDiagonalVerifier)
+
+            else:
+                if tab[0] == "allDifferent":
+                    for i in range(len(self.variables)):
+                        for j in range(i, len(self.variables)):
+                            self.addConstraint(i, j, self.diffVerifier)
