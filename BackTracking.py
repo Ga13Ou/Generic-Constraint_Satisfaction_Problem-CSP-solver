@@ -25,7 +25,8 @@ class BackTracking(CSP):
 
 # test
 a=BackTracking()
-a.setProblemFileName("testExample/mapColoringProblem.txt")
+# a.setProblemFileName("testExample/mapColoringProblem.txt")
+a.setProblemFileName("testExample/NqueenProblem.txt")
 a.solve()
 print(a.variables)
 
