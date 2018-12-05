@@ -1,0 +1,20 @@
+#variable number
+7
+#domain
+["red","green","blue"]
+["red","green","blue"]
+["red","green","blue"]
+["red","green","blue"]
+["red","green","blue"]
+["red","green","blue"]
+["red","green","blue"]
+#constraints
+diff;0;1
+diff;0;2
+diff;2;1
+diff;3;1
+diff;3;4
+diff;3;2
+diff;4;5
+diff;2;5
+diff;2;4

@@ -9,7 +9,7 @@ class CSP:
         self.variables = []
         self.assigned = []
         self.domains = []
-
+        self.problem_file_name="testExample/problem.txt"
     def addConstraint(self, var1, var2, verifier):
         self.constraints_array.append([var1, var2, verifier])
 
@@ -23,6 +23,9 @@ class CSP:
                 self.constraints_graph[constraint[1]].append(constraint[0])
             if constraint[1] not in self.constraints_graph[constraint[0]]:
                 self.constraints_graph[constraint[0]].append(constraint[1])
+
+    def setProblemFileName(self,name):
+        self.problem_file_name=name
 
     def setVariablesNumber(self, N):
         self.variables = [-1 for i in range(N)]
@@ -63,7 +66,7 @@ class CSP:
         self.domains = array
 
     def parseProblemFromFile(self):
-        problem = open("problem.txt", "r")
+        problem = open(self.problem_file_name, "r")
         fileContent = []
         for line in problem.readlines():
             if line[0] != "#":
