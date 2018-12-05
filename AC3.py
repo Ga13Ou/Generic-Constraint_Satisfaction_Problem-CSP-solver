@@ -50,7 +50,7 @@ class AC3(CSP):
 test = AC3()
 test.parseProblemFromFile()
 test.buildConstraintGraph()
-test.AC1()
+test.arcConsistency3()
 # pprint(test.constraints_array)
 # print(test.constraints_graph)
 print(test.domains)

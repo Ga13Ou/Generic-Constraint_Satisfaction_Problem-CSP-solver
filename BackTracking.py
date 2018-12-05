@@ -1,39 +1,32 @@
-class BackTracking:
-    variables=[]
-    domains=[]
-    def setDomains(self,array):
-        self.domains=array
+from CSP import CSP
 
-    def setVariables(self,number):
-        self.variables=[-1 for i in range(number)]
 
-    def constraints(self,currentIndexVariable):
-        for j in range(currentIndexVariable):
-            if((abs(self.variables[j]-self.variables[currentIndexVariable])== abs(j-currentIndexVariable)) or (self.variables[j]==self.variables[currentIndexVariable])):
-                # print("\t[log]: j={}, queens[j]={}".format(j,queens[j]))
-                return False
-        return True
+class BackTracking(CSP):
 
-    def BT(self,array:list,d:list,index:int):
-        if(len(array)==0):
+    def BT(self, array: list, d: list, index: int):
+        if (len(array) == 0):
             return True
-        
+
         for k in range(len(d[0])):
-            array[0]=d[0][k]
-            self.variables[index]=array[0]
-            if(self.constraints(index)):
-                if(self.BT(array[1:],d[1:],index+1)):
+            array[0] = d[0][k]
+            self.variables[index] = array[0]
+            self.assigned[index]=1
+            if (self.checkAllConstraints()):
+                if (self.BT(array[1:], d[1:], index + 1)):
                     return True
+            self.assigned[index]=0
         return False
+
+    def solve(self):
+        self.parseProblemFromFile()
+        print("tessst")
+        self.BT(self.variables,self.domains,0)
 
 
 # test
-a=[[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7],[0,1,2,3,4,5,6,7]]
-resolver=BackTracking()
-
-resolver.setDomains(a)
-resolver.setVariables(8)
-
-ok=resolver.BT(resolver.variables,resolver.domains,0)
-if(ok):
-    print(resolver.variables)
+a=BackTracking()
+a.solve()
+expected="397286541412539768856471329284195637639748215571362894728913456163854972945627183"
+actual="".join(str(x) for x in a.variables)
+print(expected == actual)
+# print(a.variables)
