@@ -6,41 +6,45 @@ from pprint import pprint
 class ForwardChecking(CSP):
 
     def FC(self, varIndex: int, varArray: list, varDomain):
-        for i in range(varIndex + 1, len(self.variables)):
-            k = 0
-            while k < len(varDomain[i]):
-                varArray[i] = varDomain[i][k]
-                self.assigned[i] = 1
-                if not self.checkAllConstraints():
-                    varDomain[i].pop(k)
-                    k -= 1
-                k += 1
-                self.assigned[i] = 0
-            if (len(varDomain[i]) == 0):
-                # this is when the domain gets empty after FC
-                return False
+        for i in range(len(self.variables)):
+            if not self.assigned[i]:
+                k = 0
+                while k < len(varDomain[i]):
+                    varArray[i] = varDomain[i][k]
+                    self.assigned[i] = 1
+                    if not self.checkAllConstraints():
+                        varDomain[i].pop(k)
+                        k -= 1
+                    k += 1
+                    self.assigned[i] = 0
+                if (len(varDomain[i]) == 0):
+                    # this is when the domain gets empty after FC
+                    return False
         return True
 
     def forwardSolver(self, currentIndex, varArray, varDomain):
+        heurIndex=self.convert_index(currentIndex)
+        self.updateHeuristics()
         if currentIndex == len(self.variables):
             self.variables = varArray
             self.domains = varDomain
             return True
-        for value in varDomain[currentIndex]:
-            varArray[currentIndex] = value
-            self.assigned[currentIndex] = 1
+        for value in varDomain[self.heur_array[heurIndex]]:
+            varArray[self.heur_array[heurIndex]] = value
+            self.assigned[self.heur_array[heurIndex]] = 1
             varArrayCopy = deepcopy(varArray)  # Save
             varDomainCopy = deepcopy(varDomain)
+            heur_array_copy=deepcopy(self.heur_array)
             if self.FC(currentIndex, varArray, varDomain):
                 if self.forwardSolver(currentIndex + 1, varArray, varDomain):
                     return True
             self.variables = varArray = varArrayCopy  # restore
             self.domains = varDomain = varDomainCopy
-            self.assigned[currentIndex] = 0
+            self.heur_array=heur_array_copy
+            self.assigned[self.heur_array[heurIndex]] = 0
         return False
 
     def solve(self):
-        self.parseProblemFromFile()
         print(self.forwardSolver(0, self.variables, self.domains))
 
 
@@ -48,6 +52,11 @@ class ForwardChecking(CSP):
 a = ForwardChecking()
 # a.setProblemFileName("testExample/mapColoringProblem.txt")
 a.setProblemFileName("testExample/sudokuProblem.txt")
+a.parseProblemFromFile()
+a.activateHeuristicsMrvDh()
 a.solve()
 print(a.variables)
-pprint(a.domains)
+expected="397286541412539768856471329284195637639748215571362894728913456163854972945627183"
+actual="".join(str(x) for x in a.variables)
+print(expected==actual)
+

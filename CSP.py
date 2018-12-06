@@ -175,6 +175,13 @@ class CSP:
         if self.heuristic_is_activated:
             self.mrvDhSortingFunction()
 
+    def convert_index(self,n):
+        #used to not break the code when activating the heuristique cause whith my algorithm when
+        #heuristics are activated we need to always get the first element of the array
+        if self.heuristic_is_activated:
+            return 0
+        return n
+
 
 # # test
 # a = CSP()

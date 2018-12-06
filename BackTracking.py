@@ -5,13 +5,7 @@ from copy import deepcopy
 class BackTracking(CSP):
 
     def BT(self, index: int):
-        # used to not break the code when activating the heuristique cause whith my algorithm when
-        # heuristics are activated we need to always get the first element of the array
-        if self.heuristic_is_activated:
-            heurIndex=0
-        else:
-            heurIndex=index
-        ######
+        heurIndex=self.convert_index(index)
         if index == len(self.variables):
             return True
         self.updateHeuristics()
