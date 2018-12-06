@@ -1,5 +1,7 @@
 import ast
+from functools import cmp_to_key
 from pprint import pprint
+
 
 class CSP:
     def __init__(self):
@@ -9,7 +11,9 @@ class CSP:
         self.variables = []
         self.assigned = []
         self.domains = []
-        self.problem_file_name="testExample/problem.txt"
+        self.problem_file_name = "testExample/Problem.txt"
+        self.heur_array = []
+
     def addConstraint(self, var1, var2, verifier):
         self.constraints_array.append([var1, var2, verifier])
 
@@ -24,13 +28,14 @@ class CSP:
             if constraint[1] not in self.constraints_graph[constraint[0]]:
                 self.constraints_graph[constraint[0]].append(constraint[1])
 
-    def setProblemFileName(self,name):
-        self.problem_file_name=name
+    def setProblemFileName(self, name):
+        self.problem_file_name = name
 
     def setVariablesNumber(self, N):
         self.variables = [-1 for i in range(N)]
         self.assigned = [0 for i in range(N)]
         self.constraints_graph = [[] for i in range(N)]
+        self.heur_array = [i for i in range(N)]
 
     def diffVerifier(self, i, j):
         if self.assigned[i] * self.assigned[j] == 0:
@@ -125,3 +130,32 @@ class CSP:
 
     def checkAllConstraints(self):
         return self.checkAllConstantConstraints() and self.checkAllVarConstraints()
+
+    def mrvDhSortingFunction(self):
+        self.heur_array.sort(key=cmp_to_key(self.mrvDhCMPFunction))
+
+    def mrvDhCMPFunction(self,a,b):
+        if len(self.domains[a])>len(self.domains[b]):
+            return 1
+        elif len(self.domains[a])<len(self.domains[b]):
+            return -1
+        else:
+            if self.getDh(a)>self.getDh(b):
+                return 1
+            elif self.getDh(a)<self.getDh(b):
+                return -1
+            else:
+                return 0
+
+    def getDh(self,index):
+        dh=0
+        for i in self.constraints_graph[index]:
+            if self.assigned[i] == 0:
+                dh+=1
+        return dh
+#test
+a=CSP()
+a.parseProblemFromFile()
+a.buildConstraintGraph()
+a.mrvDhSortingFunction()
+print(a.heur_array)

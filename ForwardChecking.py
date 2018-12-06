@@ -47,7 +47,7 @@ class ForwardChecking(CSP):
 # test
 a = ForwardChecking()
 # a.setProblemFileName("testExample/mapColoringProblem.txt")
-a.setProblemFileName("testExample/problem.txt")
+a.setProblemFileName("testExample/sudokuProblem.txt")
 a.solve()
 print(a.variables)
 pprint(a.domains)
