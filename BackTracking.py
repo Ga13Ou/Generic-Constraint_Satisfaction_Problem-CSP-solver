@@ -3,30 +3,29 @@ from CSP import CSP
 
 class BackTracking(CSP):
 
-    def BT(self, array: list, d: list, index: int):
-        if (len(array) == 0):
+    def BT(self, index: int):
+        if index == len(self.variables):
             return True
 
-        for k in range(len(d[0])):
-            array[0] = d[0][k]
-            self.variables[index] = array[0]
-            self.assigned[index]=1
+        for k in range(len(self.domains[index])):
+            self.variables[index] = self.domains[index][k]
+            self.assigned[index] = 1
             if (self.checkAllConstraints()):
-                if (self.BT(array[1:], d[1:], index + 1)):
+                if (self.BT(index + 1)):
                     return True
-            self.assigned[index]=0
+            self.assigned[index] = 0
         return False
 
     def solve(self):
         self.parseProblemFromFile()
         print("tessst")
-        self.BT(self.variables,self.domains,0)
+        self.BT(0)
 
 
 # test
-a=BackTracking()
+a = BackTracking()
 # a.setProblemFileName("testExample/mapColoringProblem.txt")
-a.setProblemFileName("testExample/NqueenProblem.txt")
+a.setProblemFileName("testExample/problem.txt")
 a.solve()
 print(a.variables)
 
