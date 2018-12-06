@@ -13,6 +13,8 @@ class CSP:
         self.domains = []
         self.problem_file_name = "testExample/Problem.txt"
         self.heur_array = []
+        self.constraint_graph_is_built=False
+        self.heuristic_is_activated=False
 
     def addConstraint(self, var1, var2, verifier):
         self.constraints_array.append([var1, var2, verifier])
@@ -22,6 +24,7 @@ class CSP:
 
     def buildConstraintGraph(self):
         # you have to set Variables number and add all constraints before using this method
+        self.constraint_graph_is_built=True
         for constraint in self.constraints_array:
             if constraint[0] not in self.constraints_graph[constraint[1]]:
                 self.constraints_graph[constraint[1]].append(constraint[0])
@@ -163,12 +166,19 @@ class CSP:
         return dh
 
     def activateHeuristicsMrvDh(self):
-        self.mrvDhSortingFunction()
+        if not self.constraint_graph_is_built:
+            self.buildConstraintGraph()
+        # self.mrvDhSortingFunction()
+        self.heuristic_is_activated=True
+
+    def updateHeuristics(self):
+        if self.heuristic_is_activated:
+            self.mrvDhSortingFunction()
 
 
-# test
-a = CSP()
-a.parseProblemFromFile()
-a.buildConstraintGraph()
-a.mrvDhSortingFunction()
-print(a.heur_array)
+# # test
+# a = CSP()
+# a.parseProblemFromFile()
+# a.buildConstraintGraph()
+# a.mrvDhSortingFunction()
+# print(a.heur_array)
