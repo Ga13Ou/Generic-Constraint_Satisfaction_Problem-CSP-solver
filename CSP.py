@@ -131,30 +131,43 @@ class CSP:
     def checkAllConstraints(self):
         return self.checkAllConstantConstraints() and self.checkAllVarConstraints()
 
+#for heuristics
     def mrvDhSortingFunction(self):
         self.heur_array.sort(key=cmp_to_key(self.mrvDhCMPFunction))
 
-    def mrvDhCMPFunction(self,a,b):
-        if len(self.domains[a])>len(self.domains[b]):
+    def mrvDhCMPFunction(self, a, b):
+        if(self.assigned[a]>self.assigned[b]):
             return 1
-        elif len(self.domains[a])<len(self.domains[b]):
+        elif self.assigned[a]<self.assigned[b]:
             return -1
-        else:
-            if self.getDh(a)>self.getDh(b):
+        elif self.assigned[a]==self.assigned[b] and self.assigned[a]==1:
+            return 0
+        elif self.assigned[a]==self.assigned[b] and self.assigned[a]==0:
+            if len(self.domains[a]) > len(self.domains[b]):
                 return 1
-            elif self.getDh(a)<self.getDh(b):
+            elif len(self.domains[a]) < len(self.domains[b]):
                 return -1
             else:
-                return 0
+                if self.getDh(a) > self.getDh(b):
+                    return 1
+                elif self.getDh(a) < self.getDh(b):
+                    return -1
+                else:
+                    return 0
 
-    def getDh(self,index):
-        dh=0
+    def getDh(self, index):
+        dh = 0
         for i in self.constraints_graph[index]:
             if self.assigned[i] == 0:
-                dh+=1
+                dh += 1
         return dh
-#test
-a=CSP()
+
+    def activateHeuristicsMrvDh(self):
+        self.mrvDhSortingFunction()
+
+
+# test
+a = CSP()
 a.parseProblemFromFile()
 a.buildConstraintGraph()
 a.mrvDhSortingFunction()
