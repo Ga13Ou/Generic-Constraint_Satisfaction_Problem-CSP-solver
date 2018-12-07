@@ -6,6 +6,7 @@ from copy import deepcopy
 class BackTracking(AC3):
 
     def BT(self, index: int):
+        ac_result=True #this line used in case of the ac3 is not activated so we can pass the test of the recursive call
         self.number_of_iterations += 1
         if index == len(self.variables):
             return True
@@ -20,11 +21,10 @@ class BackTracking(AC3):
             domainsCopy=deepcopy(self.domains)
             if (self.checkAllConstraints()):
                 if self.AC3_is_activated:
-                    # print("allo")
-                    self.arcConsistency3(heurIndex)
-                    # print("am here")
-                if (self.BT(index + 1)):
-                    return True
+                    ac_result=self.arcConsistency3(heurIndex)
+                if ac_result:
+                    if (self.BT(index + 1)):
+                        return True
             self.assigned[self.heur_array[heurIndex]] = 0 #Restore
             self.heur_array=heur_array_copy
             self.domains=domainsCopy

@@ -24,6 +24,7 @@ class ForwardChecking(AC3):
         return True
 
     def forwardSolver(self, currentIndex, varArray, varDomain):
+        ac_result=True #this line used in case of the ac3 is not activated so we can pass the test of the recursive call
         self.number_of_iterations+=1
         if currentIndex == len(self.variables):
             self.variables = varArray
@@ -42,11 +43,10 @@ class ForwardChecking(AC3):
             self.domains[self.heur_array[heurIndex]]=[self.variables[self.heur_array[heurIndex]]]
             if self.FC(currentIndex, varArray, varDomain):
                 if self.AC3_is_activated:
-                    # print("allo")
-                    self.arcConsistency3(heurIndex)
-                    # print("am here")
-                if self.forwardSolver(currentIndex + 1, varArray, varDomain):
-                    return True
+                    ac_result=self.arcConsistency3(heurIndex)
+                if ac_result:
+                    if self.forwardSolver(currentIndex + 1, varArray, varDomain):
+                        return True
             self.variables = varArray = varArrayCopy  # restore
             self.domains = varDomain = varDomainCopy
             self.heur_array=heur_array_copy
