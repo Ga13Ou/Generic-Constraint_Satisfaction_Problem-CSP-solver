@@ -15,6 +15,7 @@ class CSP:
         self.heur_array = []
         self.constraint_graph_is_built=False
         self.heuristic_is_activated=False
+        self.AC3_is_activated=False
 
     def addConstraint(self, var1, var2, verifier):
         self.constraints_array.append([var1, var2, verifier])
@@ -30,6 +31,7 @@ class CSP:
                 self.constraints_graph[constraint[1]].append(constraint[0])
             if constraint[1] not in self.constraints_graph[constraint[0]]:
                 self.constraints_graph[constraint[0]].append(constraint[1])
+
 
     def setProblemFileName(self, name):
         self.problem_file_name = name
@@ -166,10 +168,10 @@ class CSP:
         return dh
 
     def activateHeuristicsMrvDh(self):
+        self.heuristic_is_activated=True
         if not self.constraint_graph_is_built:
             self.buildConstraintGraph()
         # self.mrvDhSortingFunction()
-        self.heuristic_is_activated=True
 
     def updateHeuristics(self):
         if self.heuristic_is_activated:
@@ -181,6 +183,11 @@ class CSP:
         if self.heuristic_is_activated:
             return 0
         return n
+
+    def activatedAC3(self):
+        if not self.constraint_graph_is_built:
+            self.buildConstraintGraph()
+        self.AC3_is_activated=True
 
 
 # # test
