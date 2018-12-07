@@ -29,10 +29,6 @@ class ForwardChecking(AC3):
             self.domains = varDomain
             return True
         heurIndex=self.convert_index(currentIndex)
-        if self.AC3_is_activated:
-            # print("allo")
-            self.arcConsistency3(heurIndex)
-            # print("am here")
         self.updateHeuristics()
 
         for value in varDomain[self.heur_array[heurIndex]]:
@@ -44,6 +40,10 @@ class ForwardChecking(AC3):
             currentVarDomainCopy=deepcopy(self.domains[self.heur_array[heurIndex]])
             self.domains[self.heur_array[heurIndex]]=[self.variables[self.heur_array[heurIndex]]]
             if self.FC(currentIndex, varArray, varDomain):
+                if self.AC3_is_activated:
+                    # print("allo")
+                    self.arcConsistency3(heurIndex)
+                    # print("am here")
                 if self.forwardSolver(currentIndex + 1, varArray, varDomain):
                     return True
             self.variables = varArray = varArrayCopy  # restore
@@ -66,7 +66,7 @@ a = ForwardChecking()
 a.setProblemFileName("testExample/sudokuProblem.txt")
 a.parseProblemFromFile()
 a.activateHeuristicsMrvDh()
-# a.activatedAC3()
+a.activatedAC3()
 a.solve()
 print(a.variables)
 expected="397286541412539768856471329284195637639748215571362894728913456163854972945627183"
