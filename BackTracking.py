@@ -6,6 +6,7 @@ from copy import deepcopy
 class BackTracking(AC3):
 
     def BT(self, index: int):
+        self.number_of_iterations += 1
         if index == len(self.variables):
             return True
         heurIndex = self.convert_index(index)
@@ -33,7 +34,7 @@ class BackTracking(AC3):
     def solve(self):
         if self.AC3_is_activated:
             self.initArcConsistency3()
-            print("Arc Consistency Done")
+            print("initialisation de l'arc consistance avec succes")
         return self.BT(0)
 
 

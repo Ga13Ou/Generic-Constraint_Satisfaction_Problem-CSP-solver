@@ -16,6 +16,7 @@ class CSP:
         self.constraint_graph_is_built=False
         self.heuristic_is_activated=False
         self.AC3_is_activated=False
+        self.number_of_iterations=0
 
     def addConstraint(self, var1, var2, verifier):
         self.constraints_array.append([var1, var2, verifier])
@@ -184,12 +185,18 @@ class CSP:
             return 0
         return n
 
-    def activatedAC3(self):
+    def activateAC3(self):
         if not self.constraint_graph_is_built:
             self.buildConstraintGraph()
         self.AC3_is_activated=True
 
     def solve(self):
+        pass
+
+    def get_number_of_iterations(self):
+        return self.number_of_iterations
+
+    def log_state(self,currentVar):
         pass
 
 

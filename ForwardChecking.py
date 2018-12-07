@@ -24,6 +24,7 @@ class ForwardChecking(AC3):
         return True
 
     def forwardSolver(self, currentIndex, varArray, varDomain):
+        self.number_of_iterations+=1
         if currentIndex == len(self.variables):
             self.variables = varArray
             self.domains = varDomain
@@ -56,7 +57,7 @@ class ForwardChecking(AC3):
     def solve(self):
         if self.AC3_is_activated:
             self.initArcConsistency3()
-            print("Arc Consistency Done")
+            print("initialisation de l'arc consistance avec succes")
         return self.forwardSolver(0, self.variables, self.domains)
 
 
