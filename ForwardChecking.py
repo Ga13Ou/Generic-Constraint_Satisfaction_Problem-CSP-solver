@@ -61,15 +61,15 @@ class ForwardChecking(AC3):
 
 
 # test
-a = ForwardChecking()
-# a.setProblemFileName("testExample/mapColoringProblem.txt")
-a.setProblemFileName("testExample/sudokuProblem.txt")
-a.parseProblemFromFile()
-a.activateHeuristicsMrvDh()
-a.activatedAC3()
-a.solve()
-print(a.variables)
-expected="397286541412539768856471329284195637639748215571362894728913456163854972945627183"
-actual="".join(str(x) for x in a.variables)
-print(expected==actual)
+# a = ForwardChecking()
+# # a.setProblemFileName("testExample/mapColoringProblem.txt")
+# a.setProblemFileName("testExample/sudokuProblem.txt")
+# a.parseProblemFromFile()
+# a.activateHeuristicsMrvDh()
+# a.activatedAC3()
+# a.solve()
+# print(a.variables)
+# expected="397286541412539768856471329284195637639748215571362894728913456163854972945627183"
+# actual="".join(str(x) for x in a.variables)
+# print(expected==actual)
 
