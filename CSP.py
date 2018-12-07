@@ -189,6 +189,9 @@ class CSP:
             self.buildConstraintGraph()
         self.AC3_is_activated=True
 
+    def solve(self):
+        pass
+
 
 # # test
 # a = CSP()

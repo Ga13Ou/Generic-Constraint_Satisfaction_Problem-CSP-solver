@@ -56,8 +56,8 @@ class ForwardChecking(AC3):
     def solve(self):
         if self.AC3_is_activated:
             self.initArcConsistency3()
-            print("init Done")
-        print(self.forwardSolver(0, self.variables, self.domains))
+            print("Arc Consistency Done")
+        return self.forwardSolver(0, self.variables, self.domains)
 
 
 # test

@@ -33,8 +33,8 @@ class BackTracking(AC3):
     def solve(self):
         if self.AC3_is_activated:
             self.initArcConsistency3()
-            print("init Done")
-        print(self.BT(0))
+            print("Arc Consistency Done")
+        return self.BT(0)
 
 
 # # test
