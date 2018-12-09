@@ -25,7 +25,6 @@ class ForwardChecking(AC3):
 
     def forwardSolver(self, currentIndex, varArray, varDomain):
         ac_result=True #this line used in case of the ac3 is not activated so we can pass the test of the recursive call
-        self.number_of_iterations+=1
         if currentIndex == len(self.variables):
             self.variables = varArray
             self.domains = varDomain
@@ -34,6 +33,7 @@ class ForwardChecking(AC3):
         self.updateHeuristics()
 
         for value in varDomain[self.heur_array[heurIndex]]:
+            self.number_of_iterations += 1
             varArray[self.heur_array[heurIndex]] = value
             self.assigned[self.heur_array[heurIndex]] = 1
             varArrayCopy = deepcopy(varArray)  # Save

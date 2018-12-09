@@ -7,12 +7,12 @@ class BackTracking(AC3):
 
     def BT(self, index: int):
         ac_result=True #this line used in case of the ac3 is not activated so we can pass the test of the recursive call
-        self.number_of_iterations += 1
         if index == len(self.variables):
             return True
         heurIndex = self.convert_index(index)
         self.updateHeuristics()
         for k in range(len(self.domains[self.heur_array[heurIndex]])):
+            self.number_of_iterations += 1
             self.variables[self.heur_array[heurIndex]] = self.domains[self.heur_array[heurIndex]][k]
             self.assigned[self.heur_array[heurIndex]] = 1 #Save
             heur_array_copy=deepcopy(self.heur_array)

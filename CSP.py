@@ -16,7 +16,7 @@ class CSP:
         self.constraint_graph_is_built=False
         self.heuristic_is_activated=False
         self.AC3_is_activated=False
-        self.number_of_iterations=-1
+        self.number_of_iterations=0
         self.log_file=open("log.txt","w+")
 
     def addConstraint(self, var1, var2, verifier):
@@ -198,26 +198,35 @@ class CSP:
         return self.number_of_iterations
 
     def log_state(self,depth,currentVar):
-        log=[]
-        log.append("Profondeur: {}".format(depth))
-        log_var=[]
-        for index,val in enumerate(self.variables):
-            if self.assigned[index]:
-                log_var.append(val)
-            else:
-                log_var.append("*")
-        log.append(str(log_var))
-        log.append("---domains---")
+        if self.number_of_iterations<1000:
+            log=[]
+            log.append("Profondeur: {}".format(depth))
+            log_var=[]
+            for index,val in enumerate(self.variables):
+                if self.assigned[index]:
+                    log_var.append(val)
+                else:
+                    log_var.append("*")
+            log.append(str(log_var))
+            log.append("---domains---")
 
-        for index,k in enumerate(self.domains):
-            if currentVar==index:
-                pointer=" ---> "
-            else:
-                pointer = "      "
-            log.append(str(index)+":"+pointer+str(k))
-        log.append("===============================================================")
-        logFile=open("log.txt","a")
-        logFile.write("\n".join(log)+"\n")
+            for index,k in enumerate(self.domains):
+                if currentVar==index:
+                    pointer=" ---> "
+                else:
+                    pointer = "      "
+                log.append(str(index)+":"+pointer+str(k))
+            log.append("===============================================================")
+            logFile=open("log.txt","a")
+            logFile.write("\n".join(log)+"\n")
+        elif self.number_of_iterations==1000:
+            log=[]
+            log.append("...")
+            log.append("...")
+            log.append("...")
+            log.append("Nombre d'iterations est tres grand, on ne peut pas le logger ")
+            logFile = open("log.txt", "a")
+            logFile.write("\n".join(log) + "\n")
 # # test
 # a = CSP()
 # a.parseProblemFromFile()
