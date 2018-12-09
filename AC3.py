@@ -65,8 +65,9 @@ class AC3(CSP):
     def arcConsistency3(self,index):
         go=True
         for i in self.constraints_graph[index]:
-            go=self.rec_reviser(index,i)
-            if not go:
+            go1=self.rec_reviser(index,i)
+            go2=self.rec_reviser(i,index)
+            if not go1 or not go2:
                 break
         return go
 #

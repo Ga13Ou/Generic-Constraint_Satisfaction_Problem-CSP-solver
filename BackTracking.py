@@ -19,9 +19,11 @@ class BackTracking(AC3):
             currentVarDomainCopy = deepcopy(self.domains[self.heur_array[heurIndex]])
             self.domains[self.heur_array[heurIndex]] = [self.variables[self.heur_array[heurIndex]]]
             domainsCopy=deepcopy(self.domains)
-            if (self.checkAllConstraints()):
-                if self.AC3_is_activated:
-                    ac_result=self.arcConsistency3(heurIndex)
+            if self.AC3_is_activated:
+                ac_result = self.arcConsistency3(self.heur_array[heurIndex])
+            self.log_state(index,self.heur_array[heurIndex])
+            if (self.AC3_is_activated or self.checkAllConstraints()):
+                #todo trying a new verification here
                 if ac_result:
                     if (self.BT(index + 1)):
                         return True
