@@ -18,7 +18,7 @@ class CSP:
         self.heuristic_is_activated=False
         self.AC3_is_activated=False
         self.number_of_iterations=0
-        self.log_file=open("log.txt","w+")
+
 
     def addConstraint(self, var1, var2, verifier):
         self.constraints_array.append([var1, var2, verifier])
@@ -228,6 +228,28 @@ class CSP:
             log.append("Nombre d'iterations est tres grand, on ne peut pas le logger ")
             logFile = open("log.txt", "a")
             logFile.write("\n".join(log) + "\n")
+
+    def initial_log(self,algorithm:str,ac3:str,heur:str):
+        log_file = open("log.txt", "w+")
+        log=[]
+        log.append("\tLe fichier du Probleme {}".format(self.problem_file_name))
+        log.append("\talgorithm: {}".format(algorithm))
+        log.append("\tAC3 active: {}".format(ac3))
+        log.append("\tHeuristique MRV et DH active: {}".format(heur))
+        log.append("###########################################################################")
+        log_file.write("\n".join(log) + "\n")
+
+
+    def final_log(self,result,exec_time):
+        log=[]
+        log.append("\ttemps d'execution: {} secondes".format(exec_time))
+        log.append("\tnombre d'iterations: {}".format(self.get_number_of_iterations()))
+        if result:
+            log.append("\tsolution: " + str(self.variables))
+        else:
+            log.append("\tle probleme n'a pas de solution")
+        logFile = open("log.txt", "a")
+        logFile.write("\n".join(log) + "\n")
 # # test
 # a = CSP()
 # a.parseProblemFromFile()

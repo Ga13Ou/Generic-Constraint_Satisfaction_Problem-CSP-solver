@@ -29,8 +29,10 @@ def main():
         solver.activateAC3()
         AC3_print="Oui"
     start_time=time.time()
+    solver.initial_log(algorithm_print,AC3_print,heur_print)
     result=solver.solve()
     finish_time=time.time()
+    solver.final_log(result,finish_time-start_time)
 
 
     print("\n")
