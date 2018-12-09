@@ -1,6 +1,7 @@
 import ast
 from functools import cmp_to_key
 from pprint import pprint
+from math import log10,ceil
 
 
 class CSP:
@@ -215,7 +216,7 @@ class CSP:
                     pointer=" ---> "
                 else:
                     pointer = "      "
-                log.append(str(index)+":"+pointer+str(k))
+                log.append(str(index).zfill(ceil(log10(len(self.variables))))+":"+pointer+str(k))
             log.append("===============================================================")
             logFile=open("log.txt","a")
             logFile.write("\n".join(log)+"\n")
