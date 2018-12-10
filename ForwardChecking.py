@@ -44,9 +44,15 @@ class ForwardChecking(AC3):
             if self.FC(currentIndex, varArray, varDomain):
                 if self.AC3_is_activated:
                     ac_result=self.arcConsistency3(heurIndex)
+                    self.log_state(currentIndex, self.heur_array[heurIndex])
+                else:
+                    self.log_state(currentIndex, self.heur_array[heurIndex])
                 if ac_result:
                     if self.forwardSolver(currentIndex + 1, varArray, varDomain):
                         return True
+            else:
+                self.log_state(currentIndex, self.heur_array[heurIndex])
+
             self.variables = varArray = varArrayCopy  # restore
             self.domains = varDomain = varDomainCopy
             self.heur_array=heur_array_copy

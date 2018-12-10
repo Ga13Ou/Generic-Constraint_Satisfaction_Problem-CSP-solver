@@ -46,5 +46,6 @@ def main():
         print("\tsolution: "+str(solver.variables))
     else:
         print("\tle probleme n'a pas de solution")
+    print("\nPour plus de details vous pouvez consulter le fichier log.txt...\nMerci")
 
 main()
