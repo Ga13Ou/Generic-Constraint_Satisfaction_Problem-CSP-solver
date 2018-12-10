@@ -1,4 +1,11 @@
+# Travaille TP2 Projet CSP
+# Gastli Oussama
+# Hanana Nour
+# GL4
+
+#nombre de variables
 8
+#domaines
 [0,1,2,3,4,5,6,7]
 [0,1,2,3,4,5,6,7]
 [0,1,2,3,4,5,6,7]
@@ -7,5 +14,6 @@
 [0,1,2,3,4,5,6,7]
 [0,1,2,3,4,5,6,7]
 [0,1,2,3,4,5,6,7]
+#contraintes
 allDifferent
 allNotSameDiag

@@ -1,3 +1,8 @@
+# Travaille TP2 Projet CSP
+# Gastli Oussama
+# Hanana Nour
+# GL4
+
 from BackTracking import BackTracking
 from ForwardChecking import ForwardChecking
 import time

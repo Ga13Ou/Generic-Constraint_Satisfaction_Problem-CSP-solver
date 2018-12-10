@@ -1,4 +1,10 @@
-from CSP import CSP
+# Travaille TP2 Projet CSP
+# Gastli Oussama
+# Hanana Nour
+# GL4
+
+
+
 from AC3 import AC3
 from copy import deepcopy
 
@@ -39,18 +45,3 @@ class BackTracking(AC3):
             print("initialisation de l'arc consistance avec succes")
         return self.BT(0)
 
-
-# # test
-# a = BackTracking()
-# # a.setProblemFileName("testExample/mapColoringProblem.txt")
-# # a.setProblemFileName("testExample/sudokuProblem.txt")
-# a.parseProblemFromFile()
-# a.activatedAC3()
-# #a.activateHeuristicsMrvDh()
-# a.solve()
-# print(a.variables)
-#
-# expected="397286541412539768856471329284195637639748215571362894728913456163854972945627183"
-# actual="".join(str(x) for x in a.variables)
-# print(expected==actual)
-# # print(a.variables)

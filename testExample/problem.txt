@@ -1,6 +1,12 @@
-#variable number
+# Travaille TP2 Projet CSP
+# Gastli Oussama
+# Hanana Nour
+# GL4
+
+
+#nombre de variables
 7
-#domain
+#domaines
 ["red","green","blue"]
 ["red","green","blue"]
 ["red","green","blue"]
@@ -8,7 +14,7 @@
 ["red","green","blue"]
 ["red","green","blue"]
 ["red","green","blue"]
-#constraints
+#contraintes
 diff;0;1
 diff;0;2
 diff;2;1

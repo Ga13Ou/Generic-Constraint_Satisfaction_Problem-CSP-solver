@@ -1,3 +1,9 @@
+# Travaille TP2 Projet CSP
+# Gastli Oussama
+# Hanana Nour
+# GL4
+
+
 from CSP import CSP
 from copy import deepcopy
 
@@ -70,13 +76,3 @@ class AC3(CSP):
             if not go1 or not go2:
                 break
         return go
-#
-# test = AC3()
-# test.setProblemFileName("testExample/sudokuProblem.txt")
-# test.parseProblemFromFile()
-# test.buildConstraintGraph()
-# test.arcConsistency3()
-# # pprint(test.constraints_array)
-# # print(test.constraints_graph)
-# print(test.domains)
-# print(test.variables)

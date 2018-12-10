@@ -1,3 +1,9 @@
+# Travaille TP2 Projet CSP
+# Gastli Oussama
+# Hanana Nour
+# GL4
+
+
 import ast
 from functools import cmp_to_key
 from pprint import pprint
@@ -82,7 +88,7 @@ class CSP:
         problem = open(self.problem_file_name, "r")
         fileContent = []
         for line in problem.readlines():
-            if line[0] != "#":
+            if line[0] != "#" and line[0]!="\n":
                 fileContent.append(line.replace("\n", ""))
         n = int(fileContent[0])
         self.setVariablesNumber(n)
@@ -250,9 +256,3 @@ class CSP:
             log.append("\tle probleme n'a pas de solution")
         logFile = open("log.txt", "a")
         logFile.write("\n".join(log) + "\n")
-# # test
-# a = CSP()
-# a.parseProblemFromFile()
-# a.buildConstraintGraph()
-# a.mrvDhSortingFunction()
-# print(a.heur_array)
