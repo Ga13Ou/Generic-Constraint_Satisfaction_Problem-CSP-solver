@@ -2,7 +2,7 @@
 # Gastli Oussama
 # Hanana Nour
 # GL4
-
+from pprint import pprint
 variables = {
     "X1": -1,
     "X2": -1,
@@ -79,4 +79,4 @@ def backTracking(depth: int, keysArray):
 keys = list(variables.keys())
 ok = backTracking(0, keys)
 if ok:
-    print(variables)
+    pprint(variables,width=1)
